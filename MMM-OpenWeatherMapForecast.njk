@@ -50,17 +50,14 @@
 
         {% endif %}
 
-        {% if config.showWind %}
+        {% if config.showUvi %}
           <span class="wind-container">
             {% if (config.showInlineIcons) %}
-              <img class="inline-icon wind-icon" src="{{ inlineIcons.wind }}" />
+              <img class="inline-icon wind-icon" src="{{ inlineIcons.uv }}" />
             {% endif %}
 
-            <span class="wind-speed">{{ forecast.currently.wind.windSpeed }}</span>
-
-            {% if forecast.currently.wind.windGust %}
-              <span class="wind-gusts">{{ forecast.currently.wind.windGust }}</span>
-            {% endif %}
+            <span class="wind-speed">{{ forecast.currently.uvi.uviValue }}</span>
+            <span class="wind-gusts">{{ forecast.currently.uvi.uviLevel }}</span>
 
           </span>
 
@@ -98,9 +95,9 @@
               </span>
             {% endif %}
 
-            {% if config.showWind %}
+            {% if config.showUvi %}
               <span class="wind-header">
-                <img class="inline-icon wind" src="{{ inlineIcons.wind }}" />
+                <img class="inline-icon wind" src="{{ inlineIcons.uv }}" />
               </span>
             {% endif %}
           </div>
@@ -145,17 +142,14 @@
 
               {% endif %}
 
-              {% if config.showWind %}
+              {% if config.showUvi %}
                 <span class="wind-container">
                   {% if (config.showInlineIcons and config.forecastLayout == "tiled" ) %}
-                    <img class="inline-icon wind-icon" src="{{ inlineIcons.wind }}" />
+                    <img class="inline-icon wind-icon" src="{{ inlineIcons.uv }}" />
                   {% endif %}
 
-                  <span class="wind-speed">{{ h.wind.windSpeed }}</span>
-
-                  {% if h.wind.windGust %}
-                    <span class="wind-gusts">{{ h.wind.windGust }}</span>
-                  {% endif %}
+                  <span class="wind-speed">{{ h.uvi.uviValue }}</span>
+                  <span class="wind-gusts">{{ h.uvi.uviLevel }}</span>
 
                 </span>
 
@@ -209,17 +203,14 @@
 
               {% endif %}
 
-              {% if config.showWind %}
+              {% if config.showUvi %}
                 <span class="wind-container">
                   {% if (config.showInlineIcons and config.forecastLayout == "tiled" ) %}
-                    <img class="inline-icon wind-icon" src="{{ inlineIcons.wind }}" />
+                    <img class="inline-icon wind-icon" src="{{ inlineIcons.uv }}" />
                   {% endif %}
 
-                  <span class="wind-speed">{{ d.wind.windSpeed }}</span>
-
-                  {% if d.wind.windGust %}
-                    <span class="wind-gusts">{{ d.wind.windGust }}</span>
-                  {% endif %}
+                  <span class="wind-speed">{{ d.uvi.uviValue }}</span>
+                  <span class="wind-gusts">{{ d.uvi.uviLevel }}</span>
 
                 </span>
 

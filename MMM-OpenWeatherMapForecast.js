@@ -67,7 +67,8 @@ Module.register("MMM-OpenWeatherMapForecast", {
         includeTodayInDailyForecast: false,
         showPrecipitation: true,
         concise: true,
-        showWind: true,
+        showUvi: true,
+        showUviLevel: true,
         showFeelsLike: true,
         language: config.language,
         iconset: "1c",
@@ -122,7 +123,7 @@ Module.register("MMM-OpenWeatherMapForecast", {
             inlineIcons: {
                 rain: this.generateIconSrc("i-rain"),
                 snow: this.generateIconSrc("i-snow"),
-                wind: this.generateIconSrc("i-wind")
+                uv: this.generateIconSrc("i-uv")
             },
             animatedIconSizes: {
                 main: this.config.mainIconSize,
@@ -331,7 +332,8 @@ Module.register("MMM-OpenWeatherMapForecast", {
                 iconPath: this.generateIconSrc(this.convertOpenWeatherIdToIcon(this.weatherData.current.weather[0].id, this.weatherData.current.weather[0].icon), true),
                 tempRange: this.formatHiLowTemperature(this.weatherData.daily[0].temp.max, this.weatherData.daily[0].temp.min),
                 precipitation: this.formatPrecipitation(null, this.weatherData.current.rain, this.weatherData.current.snow),
-                wind: this.formatWind(this.weatherData.current.wind_speed, this.weatherData.current.wind_deg, this.weatherData.current.wind_gust),
+                // wind: this.formatWind(this.weatherData.current.wind_speed, this.weatherData.current.wind_deg, this.weatherData.current.wind_gust),
+                uvi: this.formatUvi(this.weatherData.current.uvi),
             },
             "summary": summary,
             "hourly": hourlies,
@@ -379,7 +381,10 @@ Module.register("MMM-OpenWeatherMapForecast", {
         fItem.precipitation = this.formatPrecipitation(fData.pop, fData.rain, fData.snow);
 
         // --------- Wind ---------
-        fItem.wind = (this.formatWind(fData.wind_speed, fData.wind_deg, fData.wind_gust));
+        // fItem.wind = (this.formatWind(fData.wind_speed, fData.wind_deg, fData.wind_gust));
+
+        // --------- UVI ---------
+        fItem.uvi = this.formatUvi(fData.uvi);
 
         return fItem;
     },
@@ -464,6 +469,38 @@ Module.register("MMM-OpenWeatherMapForecast", {
         return {
             windSpeed: Math.round(speed) + " " + this.getUnit("windSpeed") + (!this.config.concise ? " " + this.getOrdinal(bearing) : ""),
             windGust: windGust
+        };
+    },
+
+    /*
+      Returns a formatted data object for UV index conditions
+     */
+    formatUvi: function(uvi) {
+        if (uvi === null || uvi === undefined) {
+            return {
+                uviValue: "N/A",
+                uviLevel: ""
+            };
+        }
+
+        var uviLevel = "";
+        var roundedUvi = Math.round(uvi * 10) / 10; // Round to 1 decimal place
+
+        if (uvi < 3) {
+            uviLevel = "Low";
+        } else if (uvi < 6) {
+            uviLevel = "Moderate";
+        } else if (uvi < 8) {
+            uviLevel = "High";
+        } else if (uvi < 11) {
+            uviLevel = "Very High";
+        } else {
+            uviLevel = "Extreme";
+        }
+
+        return {
+            uviValue: roundedUvi.toString(),
+            uviLevel: (this.config.showUviLevel ? " (" + uviLevel + ")" : "")
         };
     },
 
