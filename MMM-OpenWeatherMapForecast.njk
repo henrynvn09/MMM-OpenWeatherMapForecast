@@ -6,6 +6,7 @@
 
   {% else %}
 
+  <div>
     {# -------------- Current Conditions -------------- #}
     {% if config.showCurrentConditions %}
       <div class="current-conditions-wrapper icon-set-{{ config.iconset }}">
@@ -73,6 +74,7 @@
         <div class="summary">{{ forecast.summary }}</div>
       </div>
     {% endif %}
+  </div>
 
     {# -------------- Forecast Title -------------- #}
     {% if not (config.forecastHeaderText == "") and (config.showHourlyForecast or config.showDailyForecast) %}

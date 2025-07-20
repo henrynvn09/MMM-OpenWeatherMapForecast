@@ -258,3 +258,28 @@
     display: block;
     white-space: nowrap;
 }
+
+/* ------------ make it horizontal ------------ */
+
+.MMM-OpenWeatherMapForecast .wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+/* Adjust module content width for horizontal layout */
+.MMM-OpenWeatherMapForecast .module-content {
+    width: auto;
+    min-width: 800px;
+}
+
+/* Make individual sections flexible */
+.MMM-OpenWeatherMapForecast .wrapper > .current-conditions-wrapper,
+.MMM-OpenWeatherMapForecast .wrapper > .extra-current-conditions-wrapper,
+.MMM-OpenWeatherMapForecast .wrapper > .summary-wrapper,
+.MMM-OpenWeatherMapForecast .wrapper > .forecast-container {
+    flex-shrink: 0;
+}
+
